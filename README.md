@@ -1,24 +1,21 @@
-# README
+# My Andromeda App
+Ruby and Rails Application 
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## local development
 
-Things you may want to cover:
+### Installation
+```bash
+# clone the repository
+git clone https://github.com/DariusStone7/my_andromeda_app.git
+cd my_andromeda_app
 
-* Ruby version
+# Install dependencies
+bundle install
 
-* System dependencies
+# Configure the database
+copy .env.example to .env and update the environement varaibles values
 
-* Configuration
+# Run the app
+rails server
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+open http://localhost:3000
