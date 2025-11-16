@@ -1,6 +1,113 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>My Andromeda App</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f7f9fc;
+        color: #333;
+        margin: 0;
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
 
-<img src="/profil.png"/>
-<h3>Darius NGUETSA</h3>
-<h1>Welcome!</h1>
-<p>This is the front page of my first Rails application on Elastic Beanstalk.</p>
-<a href="https://github.com/DariusStone7" target="_blank">by dariusstone7</a>
+      h1 {
+        color: #2b6cb0;
+        margin-bottom: 10px;
+      }
+
+      p {
+        font-size: 16px;
+        color: #555;
+      }
+
+      .gallery {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 20px;
+        margin-bottom: 30px;
+      }
+
+      .gallery img {
+        width: 160px;
+        height: 160px;
+        object-fit: cover;
+        border-radius: 10px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        transition: transform 0.2s ease;
+      }
+
+      .gallery img:hover {
+        transform: scale(1.05);
+      }
+
+      form {
+        margin-top: 10px;
+        background: white;
+        padding: 15px 25px;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      }
+
+      input[type="file"] {
+        padding: 5px;
+      }
+
+      button[type="submit"] {
+        background-color: #2b6cb0;
+        color: white;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 14px;
+      }
+
+      button[type="submit"]:hover {
+        background-color: #2c5282;
+      }
+
+      .message {
+        margin-top: 15px;
+        font-weight: bold;
+      }
+
+      .notice {
+        color: green;
+      }
+
+      .alert {
+        color: red;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Welcome to my Andromeda app</h1>
+    <p>View the images already uploaded and upload your own to contribute</p>
+
+    <div class="gallery">
+    <% @images.each do |image| %>
+      <% if image.file.attached? %>
+      <img src="<%= url_for(image.file) %>" width="150" height="150" style="object-fit: cover; border-radius: 8px;" alt="Image <%= image.id %>">
+      <% end %>
+    <% end %>
+    </div>
+
+    <hr>
+
+    <h3>Upload a new image</h3>
+
+    <form action="<%= upload_image_path %>" method="post" enctype="multipart/form-data" class="upload-form">
+      <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+      <input type="file" name="image[file]" id="image_file" accept="image/*,.png,.jpg,.jpeg,.gif,.webp" aria-label="Choose an image to upload" required>
+      <button type="submit" style="margin-left: 10px;">Upload</button>
+    </form>
+  </body>
+</html>
